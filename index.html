@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quirk numbers</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+  function getRandomValue(min, max) {
+    return Math.floor(Math.random() * (max - min + 1000)) + min;
+  }
+
+  async function addNumbers(a, b) {
+    let value = getRandomValue(1000, 2000);
+    await new Promise(res => {
+      setTimeout(res, value);
+    })
+    console.log("performing summary");
+    return a + b;
+  }
+
+  async function subNumbers(a, b) {
+    let value = getRandomValue(1000, 2000);
+    await new Promise(res => {
+      setTimeout(res, value);
+    })
+    console.log("performing substraction");
+    return a - b;
+  } 
+
+  async function multiplyNumbers(a, b) {
+    let value = getRandomValue(1000, 2000);
+    await new Promise(res => {
+      setTimeout(res, value);
+    })
+    console.log("performing multiplying");
+    return a * b;
+  } 
+
+  async function divNumbers(a, b) {
+    let value = getRandomValue(1000, 2000);
+    await new Promise(res => {
+      setTimeout(res, value);
+    })
+    console.log("performing division");
+    return a / b;
+  }
+
+  async function exReverseNotation(expression) {
+    let operations = ['+', '-', '*', '/'];
+    let arr = expression.split(' ');
+    let stack = [];
+    for (var i = 0; i < arr.length; i++) {
+      if (operations.includes(arr[i])) {
+        let second = Number(stack.pop());
+        let first = Number(stack.pop());
+        stack.push(await performOperation(first, second, arr[i]));
+      } else {
+        stack.push(arr[i]);
+      }
+    }
+    alert(stack.pop());
+  };
+
+  async function performOperation(a, b, operand) {
+    let value = getRandomValue(1000, 2000);
+    if (operand === '+') {
+      return await addNumbers(a, b);
+    } else if (operand === '-') {
+      return await subNumbers(a, b);
+    } else if (operand === '*') {
+      return await multiplyNumbers(a, b);
+    } else {
+      return await divNumbers(a, b);
+    }
+  };
+
+  exReverseNotation('1 2 + 3 * 4 +'); 
+  
+</script>
+</body>
+</html>
